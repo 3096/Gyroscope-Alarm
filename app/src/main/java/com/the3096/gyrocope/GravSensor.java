@@ -28,7 +28,6 @@ public class GravSensor implements SensorEventListener {
         PowerManager powerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         mWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "MyWakelockTag");
-        mWakeLock.acquire();
 
         mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
@@ -45,8 +44,9 @@ public class GravSensor implements SensorEventListener {
 
     }
 
-    void getStarted(){
+    void getStarted() {
         notStarted = false;
+        mWakeLock.acquire();
     }
 
     public void onSensorChanged(SensorEvent event) {
